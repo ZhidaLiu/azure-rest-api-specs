@@ -48,6 +48,46 @@ These settings apply only when `--tag=package-2024-10` is specified on the comma
 ```yaml $(tag) == 'package-2024-10'
 input-file:
   - Microsoft.CognitiveServices/stable/2024-10-01/cognitiveservices.json
+suppressions: 
+- code: PutResponseCodes
+  reason: Approved to be suppressed in AML swagger
+  where:
+    - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/projects/{projectName}"].put
+    - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/connections/{connectionName}"].put
+    - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/projects/{projectName}/connections/{connectionName}"].put
+
+- code: PatchResponseCodes
+  reason: Approved to be suppressed in AML swagger
+  where:
+    - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/projects/{projectName}"].patch
+
+- code: PatchBodyParametersSchema
+  reason: Approved to be suppressed in AML swagger
+  where:
+    - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/connections/{connectionName}"].patch.parameters.schema.properties.properties
+    - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/projects/{projectName}"].patch.parameters.schema.properties.properties
+    - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/projects/{projectName}/connections/{connectionName}"].patch.parameters.schema.properties.properties
+
+- code: GuidUsage
+  reason: Approved to be suppressed in AML swagger.
+  where:
+    - $.definitions.ConnectionOAuth2.properties.clientId.format
+
+- code: DeleteResponseCodes
+  reason: Approved to be suppressed in AML swagger
+  where:
+    - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/projects/{projectName}"].delete
+    
+- code: AvoidAdditionalProperties
+  reason: Approved to be suppressed in AML swagger
+  where:
+    - $.definitions.ConnectionPropertiesV2.properties.metadata
+    - $.definitions.CustomKeys.properties.keys
+
+- code: NestedResourcesMustHaveListOperation
+  reason: Approved to be suppressed in AML swagger.
+  where:
+    - $.definitions["CapabilityHostResource"]
 ```
 
 ### Tag: package-preview-2024-06
